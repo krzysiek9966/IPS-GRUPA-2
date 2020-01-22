@@ -1,0 +1,27 @@
+version: "3"
+services:
+    server:
+     image: yandex/clickhouse-server
+     ports:
+     - "8123:8123"
+     - "9000:9000"
+     - "9009:9009"
+     
+     ulimits:
+      nproc: 65535
+      nofile:
+       soft: 262144
+       hard: 262144
+    client:
+      image: yandex/clickhouse-client
+      command: ['--host', 'server']
+
+
+
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    restart: always 
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ips2019
